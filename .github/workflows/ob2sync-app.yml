@@ -9,20 +9,6 @@ on:
       - "v*" # Push events to matching v*, i.e. v1.0, v20.15.10
 
 jobs:
-  create-release:
-    name: Create Release
-    runs-on: ubuntu-latest
-    steps:
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
   build:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -80,10 +66,25 @@ jobs:
         run: |
           chmod +x ob2sync
           tar czvf ob2sync-macos.tar.gz ob2sync README.md
-      - name: Upload Release Asset
+
+  
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+      - name: Upload Release Asset - Windows
         id: upload-release-asset-win
         uses: actions/upload-release-asset@v1
-        if: matrix.os == 'windows-latest'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -91,10 +92,9 @@ jobs:
           asset_path: ./ob2sync-windows.zip
           asset_name: ob2sync-windows.zip
           asset_content_type: application/zip
-      - name: Upload Release Asset
+      - name: Upload Release Asset - Linux
         id: upload-release-asset-linux
         uses: actions/upload-release-asset@v1
-        if: matrix.os == 'ubuntu-latest'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -102,10 +102,9 @@ jobs:
           asset_path: ./ob2sync-linux-x86.tar.gz
           asset_name: ob2sync-linux-x86.tar.gz
           asset_content_type: application/gzip
-      - name: Upload Release Asset
+      - name: Upload Release Asset - MacOS
         id: upload-release-asset-macos
         uses: actions/upload-release-asset@v1
-        if: matrix.os == 'macos-latest'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
