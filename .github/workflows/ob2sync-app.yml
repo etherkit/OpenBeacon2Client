@@ -56,7 +56,8 @@ jobs:
         if: matrix.os == 'windows-latest'
         shell: bash
         run: |
-          zip ob2sync-windows.zip ob2sync.exe README.md
+          Compress-Archive -Path "ob2sync.exe", "README.md" -DestinationPath "ob2sync-windows.zip"
+          # zip ob2sync-windows.zip ob2sync.exe README.md
       - name: Package - Linux
         if: matrix.os == 'ubuntu-latest'
         run: |
