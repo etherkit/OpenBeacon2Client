@@ -32,7 +32,7 @@ jobs:
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: Generate binary
         run: |
-          pyinstaller --onefile --noconfirm --clean ob2sync_linux_x86.spec
+          pyinstaller --onefile --noconfirm --distpath . --clean ob2sync_linux_x86.spec
       - name: Output binary
         uses: actions/upload-artifact@v2
         with:
