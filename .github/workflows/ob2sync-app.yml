@@ -40,4 +40,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ob2sync
-          path: linux-x86/
+          path: ob2sync
