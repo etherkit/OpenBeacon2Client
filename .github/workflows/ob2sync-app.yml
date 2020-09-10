@@ -40,4 +40,4 @@ jobs:
           path: linux-x86/ob2sync
       - name: chmod
         run: |
-          chmod +x ob2sync
+          chmod +x linux-x86/ob2sync
