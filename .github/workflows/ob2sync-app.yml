@@ -52,16 +52,17 @@ jobs:
         if: matrix.os == 'macos-latest'
         run: |
           pyinstaller --onefile --noconfirm --distpath ./ --clean ob2sync_macos.spec
-      - name: Package
+      - name: Package - Windows
         if: matrix.os == 'windows-latest'
+        shell: bash
         run: |
           zip ob2sync-windows.zip ob2sync.exe README.md
-      - name: Package
+      - name: Package - Linux
         if: matrix.os == 'ubuntu-latest'
         run: |
           chmod +x ob2sync
           tar czvf ob2sync-linux-x86.tar.gz ob2sync README.md
-      - name: Package
+      - name: Package - MacOS
         if: matrix.os == 'macos-latest'
         run: |
           chmod +x ob2sync
@@ -71,6 +72,7 @@ jobs:
   release:
     name: Create Release
     runs-on: ubuntu-latest
+    needs: [build]
     steps:
       - name: Create Release
         id: create_release
