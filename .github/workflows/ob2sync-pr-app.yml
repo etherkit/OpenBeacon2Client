@@ -37,6 +37,17 @@ jobs:
         run: |
           pyinstaller --onefile --noconfirm --distpath ./ --clean ob2sync_linux_x86.spec
       - name: chmod
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          chmod +x ob2sync
+          mv ob2sync ob2sync-linux-x86
+      - name: Upload binary
+        uses: actions/upload-artifact@v2
+        if: matrix.os == 'ubuntu-latest'
+        with:
+          name: ob2sync-linux-x86
+          path: ob2sync-linux-x86
+      - name: chmod
         if: matrix.os == 'macos-latest'
         run: |
           chmod +x ob2sync
