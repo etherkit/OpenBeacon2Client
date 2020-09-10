@@ -33,11 +33,12 @@ jobs:
       - name: Generate binary
         run: |
           pyinstaller --onefile --noconfirm --distpath ./ --clean ob2sync_linux_x86.spec
+      - name: chmod
+        run: |
+          chmod +x ob2sync
       - name: Upload binary
         uses: actions/upload-artifact@v2
         with:
           name: ob2sync
-          path: linux-x86/ob2sync
-      - name: chmod
-        run: |
-          chmod +x linux-x86/ob2sync
+          path: ob2sync
+
