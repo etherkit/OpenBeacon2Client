@@ -50,11 +50,11 @@ jobs:
         run: |
           pyinstaller --onefile --noconfirm --distpath ./ --clean ob2sync_linux_x86.spec
       - name: Generate binary
-        if: matrix.os == 'windows-latest'
+        if: matrix.os == 'macos-latest'
         run: |
           pyinstaller --onefile --noconfirm --distpath ./ --clean ob2sync_macos.spec
       - name: Package binary
-        if: matrix.os == 'macos-latest'
+        if: matrix.os == 'ubuntu-latest'
         run: |
           chmod +x ob2sync
           mv ob2sync ob2sync-linux-x86
