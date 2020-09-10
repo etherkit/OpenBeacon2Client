@@ -13,7 +13,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [windows-latest, ubuntu-latest, macos-latest]
 
     steps:
       - uses: actions/checkout@v2
@@ -56,8 +56,7 @@ jobs:
         if: matrix.os == 'windows-latest'
         shell: bash
         run: |
-          Compress-Archive -Path "ob2sync.exe", "README.md" -DestinationPath "ob2sync-windows.zip"
-          # zip ob2sync-windows.zip ob2sync.exe README.md
+          7z a -tzip ob2sync-windows.zip ob2sync.exe README.md
       - name: Package - Linux
         if: matrix.os == 'ubuntu-latest'
         run: |
