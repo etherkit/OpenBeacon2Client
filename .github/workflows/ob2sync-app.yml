@@ -32,10 +32,10 @@ jobs:
       - name: Generate binary
         run: |
           pyinstaller --onefile --noconfirm --distpath ./ --clean ob2sync_linux_x86.spec
-      - name: chmod
+      - name: Package
         run: |
           chmod +x ob2sync
-          tar -czfv ob2sync-linux-x86.tar.gz ob2sync README.md
+          tar -czfv ob2sync-linux-x86.tar.gz ob2sync
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
