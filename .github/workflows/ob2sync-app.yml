@@ -35,7 +35,7 @@ jobs:
       - name: Package
         run: |
           chmod +x ob2sync
-          tar -czfv ob2sync-linux-x86.tar.gz ob2sync
+          tar czvf ob2sync-linux-x86.tar.gz ob2sync README.md
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
