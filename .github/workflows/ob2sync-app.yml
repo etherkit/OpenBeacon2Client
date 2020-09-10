@@ -41,4 +41,9 @@ jobs:
         with:
           name: ob2sync
           path: ob2sync
+      - name: Download binary
+        uses: actions/download-artifact@v2
+        with:
+          name: ob2sync
+          path: linux-x86/ob2sync
 
