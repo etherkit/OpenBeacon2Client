@@ -41,6 +41,7 @@ jobs:
           chmod +x ob2sync
       - name: Upload binary
         uses: actions/upload-artifact@v2
+        if: matrix.os == 'macos-latest'
         with:
           name: ob2sync
-          path: ob2sync
+          path: ob2sync-macos
