@@ -45,5 +45,5 @@ jobs:
         uses: actions/upload-artifact@v2
         if: matrix.os == 'macos-latest'
         with:
-          name: ob2sync
-          path: ob2sync
+          name: ob2sync-macos
+          path: ob2sync-macos
