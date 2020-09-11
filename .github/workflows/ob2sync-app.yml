@@ -67,6 +67,24 @@ jobs:
         run: |
           chmod +x ob2sync
           tar czvf ob2sync-macos.tar.gz ob2sync README.md
+      - name: Upload artifact - Windows
+        uses: actions/upload-artifact@v2
+        if: matrix.os == 'windows-latest'
+        with:
+          name: ob2sync-windows.zip
+          path: ob2sync-windows.zip
+      - name: Upload artifact - Linux
+        uses: actions/upload-artifact@v2
+        if: matrix.os == 'ubuntu-latest'
+        with:
+          name: ob2sync-linux-x86.tar.gz
+          path: ob2sync-linux-x86.tar.gz
+      - name: Upload artifact - MacOS
+        uses: actions/upload-artifact@v2
+        if: matrix.os == 'macos-latest'
+        with:
+          name: ob2sync-macos.tar.gz
+          path: ob2sync-macos.tar.gz
 
   
   release:
@@ -74,6 +92,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build]
     steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
