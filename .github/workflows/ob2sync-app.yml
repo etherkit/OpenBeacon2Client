@@ -94,6 +94,8 @@ jobs:
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v2
+      - name: ls
+        run: ls -R
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
