@@ -43,48 +43,48 @@ jobs:
       - name: Generate binary
         if: matrix.os == 'windows-latest'
         run: |
-          pyinstaller --onefile --noconfirm --distpath ./ --clean ob2sync_win.spec
+          pyinstaller --onefile --noconfirm --distpath ./win --clean ob2sync_win.spec
       - name: Generate binary
         if: matrix.os == 'ubuntu-latest'
         run: |
-          pyinstaller --onefile --noconfirm --distpath ./ --clean ob2sync_linux_x86.spec
+          pyinstaller --onefile --noconfirm --distpath ./linux-x86 --clean ob2sync_linux_x86.spec
       - name: Generate binary
         if: matrix.os == 'macos-latest'
         run: |
-          pyinstaller --onefile --noconfirm --distpath ./ --clean ob2sync_macos.spec
+          pyinstaller --onefile --noconfirm --distpath ./macos --clean ob2sync_macos.spec
       - name: Package - Windows
         if: matrix.os == 'windows-latest'
         shell: bash
         run: |
-          7z a -tzip ob2sync-windows.zip ob2sync.exe README.md
+          7z a -tzip win/ob2sync-windows.zip win/ob2sync.exe README.md
       - name: Package - Linux
         if: matrix.os == 'ubuntu-latest'
         run: |
-          chmod +x ob2sync
-          tar czvf ob2sync-linux-x86.tar.gz ob2sync README.md
+          chmod +x linux-x86/ob2sync
+          tar czvf linux-x86/ob2sync-linux-x86.tar.gz linux-x86/ob2sync README.md
       - name: Package - MacOS
         if: matrix.os == 'macos-latest'
         run: |
-          chmod +x ob2sync
-          tar czvf ob2sync-macos.tar.gz ob2sync README.md
+          chmod +x macos/ob2sync
+          tar czvf macos/ob2sync-macos.tar.gz macos/ob2sync README.md
       - name: Upload artifact - Windows
         uses: actions/upload-artifact@v2
         if: matrix.os == 'windows-latest'
         with:
           name: ob2sync-windows.zip
-          path: ./
+          path: ./win
       - name: Upload artifact - Linux
         uses: actions/upload-artifact@v2
         if: matrix.os == 'ubuntu-latest'
         with:
           name: ob2sync-linux-x86.tar.gz
-          path: ./
+          path: ./linux-x86
       - name: Upload artifact - MacOS
         uses: actions/upload-artifact@v2
         if: matrix.os == 'macos-latest'
         with:
           name: ob2sync-macos.tar.gz
-          path: ./
+          path: ./macos
 
   
   release:
@@ -113,7 +113,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: ob2sync-windows.zip
+          asset_path: ./
           asset_name: ob2sync-windows.zip
           asset_content_type: application/zip
       - name: Upload Release Asset - Linux
@@ -123,7 +123,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: ob2sync-linux-x86.tar.gz
+          asset_path: ./
           asset_name: ob2sync-linux-x86.tar.gz
           asset_content_type: application/gzip
       - name: Upload Release Asset - MacOS
@@ -133,6 +133,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: ob2sync-macos.tar.gz
+          asset_path: ./
           asset_name: ob2sync-macos.tar.gz
           asset_content_type: application/gzip
