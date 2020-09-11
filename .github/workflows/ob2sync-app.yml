@@ -71,20 +71,20 @@ jobs:
         uses: actions/upload-artifact@v2
         if: matrix.os == 'windows-latest'
         with:
-          name: ob2sync-windows.zip
-          path: ./win
+          name: ob2sync-windows
+          path: ./win/ob2sync-windows.zip
       - name: Upload artifact - Linux
         uses: actions/upload-artifact@v2
         if: matrix.os == 'ubuntu-latest'
         with:
-          name: ob2sync-linux-x86.tar.gz
-          path: ./linux-x86
+          name: ob2sync-linux-x86
+          path: ./linux-x86/ob2sync-linux-x86.tar.gz
       - name: Upload artifact - MacOS
         uses: actions/upload-artifact@v2
         if: matrix.os == 'macos-latest'
         with:
-          name: ob2sync-macos.tar.gz
-          path: ./macos
+          name: ob2sync-macos
+          path: ./macos/ob2sync-macos.tar.gz
 
   
   release:
