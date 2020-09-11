@@ -43,7 +43,7 @@ jobs:
       - name: Generate binary
         if: matrix.os == 'windows-latest'
         run: |
-          pyinstaller --onefile --noconfirm --distpath ./ob2sync.exe --clean ob2sync_win.spec
+          pyinstaller --onefile --noconfirm --distpath ./ --clean ob2sync_win.spec
       - name: Generate binary
         if: matrix.os == 'ubuntu-latest'
         run: |
