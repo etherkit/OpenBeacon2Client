@@ -43,48 +43,48 @@ jobs:
       - name: Generate binary
         if: matrix.os == 'windows-latest'
         run: |
-          pyinstaller --onefile --noconfirm --distpath ./win --clean ob2sync_win.spec
+          pyinstaller --onefile --noconfirm --distpath ./ --clean ob2sync_win.spec
       - name: Generate binary
         if: matrix.os == 'ubuntu-latest'
         run: |
-          pyinstaller --onefile --noconfirm --distpath ./linux-x86 --clean ob2sync_linux_x86.spec
+          pyinstaller --onefile --noconfirm --distpath ./ --clean ob2sync_linux_x86.spec
       - name: Generate binary
         if: matrix.os == 'macos-latest'
         run: |
-          pyinstaller --onefile --noconfirm --distpath ./macos --clean ob2sync_macos.spec
+          pyinstaller --onefile --noconfirm --distpath ./ --clean ob2sync_macos.spec
       - name: Package - Windows
         if: matrix.os == 'windows-latest'
         shell: bash
         run: |
-          7z a -tzip win/ob2sync-windows.zip win/ob2sync.exe README.md
+          7z a -tzip ob2sync-windows.zip ob2sync.exe README.md
       - name: Package - Linux
         if: matrix.os == 'ubuntu-latest'
         run: |
-          chmod +x linux-x86/ob2sync
-          tar czvf linux-x86/ob2sync-linux-x86.tar.gz linux-x86/ob2sync README.md
+          chmod +x ob2sync
+          tar czvf ob2sync-linux-x86.tar.gz ob2sync README.md
       - name: Package - MacOS
         if: matrix.os == 'macos-latest'
         run: |
-          chmod +x macos/ob2sync
-          tar czvf macos/ob2sync-macos.tar.gz macos/ob2sync README.md
+          chmod +x ob2sync
+          tar czvf ob2sync-macos.tar.gz ob2sync README.md
       - name: Upload artifact - Windows
         uses: actions/upload-artifact@v2
         if: matrix.os == 'windows-latest'
         with:
           name: ob2sync-windows
-          path: ./win/ob2sync-windows.zip
+          path: ./ob2sync-windows.zip
       - name: Upload artifact - Linux
         uses: actions/upload-artifact@v2
         if: matrix.os == 'ubuntu-latest'
         with:
           name: ob2sync-linux-x86
-          path: ./linux-x86/ob2sync-linux-x86.tar.gz
+          path: ./ob2sync-linux-x86.tar.gz
       - name: Upload artifact - MacOS
         uses: actions/upload-artifact@v2
         if: matrix.os == 'macos-latest'
         with:
           name: ob2sync-macos
-          path: ./macos/ob2sync-macos.tar.gz
+          path: ./ob2sync-macos.tar.gz
 
   
   release:
